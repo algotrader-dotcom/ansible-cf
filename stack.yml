@@ -1,0 +1,22 @@
+- name: Provision Stack
+  hosts: localhost
+  connection: local
+  gather_facts: False
+  vars_files:
+    - "vars/cf_vars.yml"
+
+  tasks:
+    - name: launch ansible cloudformation example
+      cloudformation:
+        stack_name: "ansible-cloudformation"
+        state: "present"
+        region: "ap-northeast-1"
+        disable_rollback: true
+        template: "files/cf_s3.yml"
+        # template_parameters:
+        #   KeyName: "jmartin"
+        #   DiskType: "ephemeral"
+        #   InstanceType: "m1.small"
+        #   ClusterSize: 3
+        tags:
+          Stack: "ansible-cloudformation"
